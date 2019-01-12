@@ -508,6 +508,18 @@ class Config(object):
         """
         return deepcopy(self.config)
 
+    @classmethod
+    def from_dict(cls, name, config_dict):
+        """Load configuration from existing dictionary object."""
+        config = cls(name)
+        config.clear()
+        config.update(config_dict)
+        return config
+
+    def copy(self):
+        """Return deep copy configuration object."""
+        return self.from_dict(self.name, self.to_dict())
+
     def clear(self):
         """Clear all existing configuration."""
         self.config.clear()

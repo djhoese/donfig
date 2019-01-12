@@ -410,6 +410,18 @@ def test_to_dict():
     assert d['y'] != test_config.config['y']
 
 
+def test_to_copy():
+    test_config = Config(config_name)
+    test_config.config = {'x': 1, 'y': {'a': 2}}
+    d = test_config.copy()
+    assert d.config == test_config.config
+    # make sure we copied
+    d.set(z=3)
+    d.set({'y.b': 4})
+    assert d.config != test_config.config
+    assert d.get('y') != test_config.get('y')
+
+
 if __name__ == '__main__':
     import sys
     import pytest
